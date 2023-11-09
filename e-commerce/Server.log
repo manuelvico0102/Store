@@ -1,0 +1,27 @@
+[09/Nov/2023 16:30:14] INFO [etienda.views:13] Se ha accedidio a la página principal
+[09/Nov/2023 16:30:14] INFO [etienda.views:13] Se ha accedidio a la página principal
+[09/Nov/2023 16:30:14] INFO [etienda.views:13] Se ha accedidio a la página principal
+[09/Nov/2023 16:30:28] INFO [etienda.views:21] Se ha accedido a la página de mens clothing
+[09/Nov/2023 16:30:28] INFO [etienda.views:21] Se ha accedido a la página de mens clothing
+[09/Nov/2023 16:30:31] INFO [etienda.views:43] Se ha accedido a la página de nuevo producto
+[09/Nov/2023 16:31:02] INFO [etienda.views:40] El usuario manuel ha añadido el producto Coche
+[09/Nov/2023 16:31:02] INFO [etienda.views:13] Se ha accedidio a la página principal
+[09/Nov/2023 16:31:02] INFO [etienda.views:40] El usuario manuel ha añadido el producto Coche
+[09/Nov/2023 16:31:02] INFO [etienda.views:13] Se ha accedidio a la página principal
+[09/Nov/2023 16:31:05] INFO [etienda.views:21] Se ha accedido a la página de Todos los productos
+[09/Nov/2023 16:31:17] INFO [etienda.views:43] Se ha accedido a la página de nuevo producto
+[09/Nov/2023 16:31:34] INFO [etienda.views:40] El usuario manuel ha añadido el producto Coche2
+[09/Nov/2023 16:31:34] INFO [etienda.views:13] Se ha accedidio a la página principal
+[09/Nov/2023 16:31:37] INFO [etienda.views:21] Se ha accedido a la página de Todos los productos
+[09/Nov/2023 16:31:54] INFO [etienda.views:43] Se ha accedido a la página de nuevo producto
+[09/Nov/2023 16:32:24] INFO [etienda.views:40] El usuario manuel ha añadido el producto Prueba
+[09/Nov/2023 16:32:24] INFO [etienda.views:13] Se ha accedidio a la página principal
+[09/Nov/2023 16:32:28] INFO [etienda.views:21] Se ha accedido a la página de Todos los productos
+[09/Nov/2023 16:33:59] INFO [etienda.views:13] Se ha accedidio a la página principal
+[09/Nov/2023 16:34:02] INFO [etienda.views:21] Se ha accedido a la página de Todos los productos
+[09/Nov/2023 16:34:08] INFO [etienda.views:26] Se ha buscado cotton
+[09/Nov/2023 16:34:23] INFO [etienda.signals:24] manuel ha cerrado sesión
+[09/Nov/2023 16:34:23] INFO [etienda.views:13] Se ha accedidio a la página principal
+[09/Nov/2023 16:34:36] ERROR [etienda.signals:19] Fallo al iniciar sesión; usuario desconocido
+[09/Nov/2023 16:34:44] INFO [etienda.signals:11] El usuario manuel ha iniciado sesión.
+[09/Nov/2023 16:34:44] INFO [etienda.views:13] Se ha accedidio a la página principal

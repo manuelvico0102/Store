@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Título predeterminado{% endblock %}</title>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .container {
+            margin-top: 20px;
+        }
+        .background_negro, .my-btn, .dropdown-item:active{
+            background-color: rgb(142, 68, 173);
+        }
+        .navbar-brand, .nav-link{
+            color: white;
+        }
+        .my-btn {
+            color: white;
+            border-color: white;
+        }
+        .my-btn:hover, .my-btn:active{
+            background-color: white;
+            color: black;
+            border-color: rgb(142, 68, 173);
+        }  
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light background_negro">
+        <a class="navbar-brand ms-3" href="{% url 'index' %}">Tienda</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <a href="{% url 'nuevo-producto' %}" class="nav-link ms-3">Añadir</a>
+            <div class="dropdown ms-3">
+                <button class="btn my-btn" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    Categorías
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="{% url 'buscar-categoria' categoria='mens clothing' %}">Men's Clothing</a>
+                    <a class="dropdown-item" href="{% url 'buscar-categoria' categoria='womens clothing' %}">Women's Clothing</a>
+                    <a class="dropdown-item" href="{% url 'buscar-categoria' categoria='jewelery' %}">Jewelery</a>
+                    <a class="dropdown-item" href="{% url 'buscar-categoria' categoria='electronics' %}">Electronics</a>
+                    <a class="dropdown-item" href="{% url 'buscar-categoria' categoria='Todos los productos' %}">Todos los productos</a>
+                </div>
+            </div>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <form class="d-flex" method="get" action="{% url 'buscar-nombre' %}">
+                        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar" name="buscar">
+                        <button class="btn my-btn" type="submit">Buscar</button>
+                    </form>
+                </li>
+            </ul>
+            <div class="d-flex justify-content-start ms-3 me-3">
+                {% if user.is_authenticated %}
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span> Hola {{ user.username }} </span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Log Out</a></li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
+
+

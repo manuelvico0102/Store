@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Tienda Online{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Categorías</h1>
+    <div class="row mt-4">
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <img src="{% static 'images/mens.jpg' %}" class="card-img-top" alt="Men's Clothing">
+                <div class="card-body">
+                    <h5 class="card-title">Men's Clothing</h5>
+                    <p class="card-text">Descubre la colección de ropa para hombres.</p>
+                </div>
+                <div class="card-footer d-flex justify-content-center bg-transparent">
+                    <a href="{% url 'buscar-categoria' categoria='mens clothing' %}" class="btn my-btn">Ver productos</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <img src="{% static 'images/womenfashion.jpg' %}" class="card-img-top" alt="Women's Clothing">
+                <div class="card-body">
+                    <h5 class="card-title">Women's Clothing</h5>
+                    <p class="card-text">Explora nuestra amplia gama de ropa para mujeres.</p>
+                </div>
+                <div class="card-footer d-flex justify-content-center bg-transparent">
+                    <a href="{% url 'buscar-categoria' categoria='womens clothing' %}" class="btn my-btn">Ver productos</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <img src="{% static 'images/jewellery.jpg' %}" class="card-img-top" alt="Jewellery">
+                <div class="card-body">
+                    <h5 class="card-title">Jewellery</h5>
+                    <p class="card-text">Descubre nuestras joyas exquisitas.</p>
+                </div>
+                <div class="card-footer d-flex justify-content-center bg-transparent">
+                    <a href="{% url 'buscar-categoria' categoria='jewelery' %}" class="btn my-btn">Ver productos</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <img src="{% static 'images/electronics.jpg' %}" class="card-img-top" alt="Electronics">
+                <div class="card-body">
+                    <h5 class="card-title">Electronics</h5>
+                    <p class="card-text">Encuentra los dispositivos electrónicos más recientes.</p>
+                </div>
+                <div class="card-footer d-flex justify-content-center bg-transparent">
+                    <a href="{% url 'buscar-categoria' categoria='electronics' %}" class="btn my-btn">Ver productos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
