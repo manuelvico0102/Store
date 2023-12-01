@@ -10,8 +10,8 @@ def consultaCategoria(categoria):
     productos = Seed.consultarCategoria(categoria)
     return productos
 
-def buscarProducto(texto):
-    productos = Seed.buscarProducto(texto)
+def buscarProducto(request, texto):
+    productos = Seed.buscarProducto(request, texto)
     return productos
 
 def insertarProducto(nombre, precio, descripcion, categoria, imagen):

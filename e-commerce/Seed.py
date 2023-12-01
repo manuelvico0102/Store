@@ -7,6 +7,8 @@ import requests
 import os
 import subprocess
 from datetime import datetime
+from django.contrib import messages
+from bson import ObjectId
 		
 # https://requests.readthedocs.io/en/latest/
 # Función para obtener los productos de la API, así como las compras
@@ -55,16 +57,16 @@ def copiaSeguridad():
 # https://docs.pydantic.dev/latest/usage/fields/
 
 class Nota(BaseModel):
-	puntuación: float = Field(ge=0., lt=5.)
-	cuenta: int = Field(ge=1)
+	rate: float = Field(ge=0., lt=5.)
+	count: int = Field(ge=0)
 				
 class Producto(BaseModel):
 	_id: Any
-	nombre: str
-	precio: float
-	descripción: str
-	categoría: str
-	imágen: str | None
+	title: str
+	price: float
+	description: str
+	category: str
+	image: str | None
 	rating: Nota
 
 class listaCompras(BaseModel):
@@ -90,20 +92,19 @@ def guardarProductos():
 	productos = getProductos('https://fakestoreapi.com/products')
 	for p in productos:
 		dato = {
-		'nombre': p['title'], 
-		'precio': p['price'], 
-		'descripción': p['description'],
-		'categoría': p['category'],
-		'imágen': p['image'].split("/")[-1], 
-		'rating': {'puntuación': p['rating']['rate'], 'cuenta': p['rating']['count']}
+		'title': p['title'], 
+		'price': p['price'], 
+		'description': p['description'],
+		'category': p['category'],
+		'image': p['image'].split("/")[-1], 
+		'rating': {'rate': p['rating']['rate'], 'count': p['rating']['count']}
 		}
 		# Nos aseguramos que el nombre empieza en mayuscula
-		if not dato['nombre'][0].islower():
+		if not dato['title'][0].islower():
 			# Si no existe un producto con el mismo nombre, lo insertamos
-			if productos_collection.find_one({'nombre': dato['nombre']}) == None:
-				descargarImagen(p['image'], './static/images', dato['imágen'])
-				producto = Producto(**dato)
-				productos_collection.insert_one(producto.model_dump())
+			if productos_collection.find_one({'title': dato['title']}) == None:
+				descargarImagen(p['image'], './static/images', dato['image'])
+				productos_collection.insert_one(dato)
 
 def guardarCompras():
 	## Obtenemos las compras y las insertamos en la BD
@@ -126,12 +127,13 @@ def guardarCompras():
 		}
 		
 		compra = Compra(**dato)
-		compras_collection.insert_one(compra.model_dump())
+		compras_collection.insert_one(compra)
 
 def consultarProductos():
 	resultado = productos_collection.find()
 	productos = []
 	for result in resultado:
+		result['id'] = str(result['_id'])
 		productos.append(result)
 	return productos
 
@@ -141,21 +143,40 @@ def consultarCategoria(categoria):
 	elif(categoria == "womens clothing"):
 		categoria = "women's clothing"
 
-	resultado = productos_collection.find({'categoría': categoria})
+	resultado = productos_collection.find({'category': categoria})
 	productos = []
 	for result in resultado:
+		result['id'] = str(result['_id'])
 		productos.append(result)
 	return productos
 
-def buscarProducto(nombre):
-	resultado = productos_collection.find({'nombre': {'$regex': nombre, '$options': 'i'}})
+def buscarProducto(request, nombre):
+	resultado = productos_collection.find({'title': {'$regex': nombre, '$options': 'i'}})
 	productos = []
 	
 	for result in resultado:
 		print(nombre)
 		productos.append(result)
+	
+	#Comprobar si los productos esta vacio
+	if not productos:
+		messages.error(request, 'No se ha encontrado ningún producto con ese nombre')
+	else:
+		messages.success(request, "Se han encontrado coincidencias")
 	return productos
 
+def buscarProductoPorId(producto_id):
+	try:
+		producto_id = ObjectId(producto_id)
+		resultado = productos_collection.find_one({"_id": producto_id})
+		if resultado:
+			resultado['_id'] = str(resultado['_id'])
+			return resultado
+		else:
+			messages.error("Producto no encontrado")
+	except Exception as e:
+		raise Exception(f"Error al buscar producto por ID: {str(e)}")
+	
 def insertarProducto(nombre, precio, descripcion, categoria, imagen):
 	if(categoria == "mens clothing"):
 		categoria = "men's clothing"
@@ -165,15 +186,30 @@ def insertarProducto(nombre, precio, descripcion, categoria, imagen):
 	imagenNombre = guardarImagen(imagen)
 
 	dato = {
-		'nombre': nombre, 
-		'precio': precio, 
-		'descripción': descripcion,
-		'categoría': categoria,
-		'imágen': imagenNombre,
-		'rating': {'puntuación': 0, 'cuenta': 1}
+		'title': nombre, 
+		'price': precio, 
+		'description': descripcion,
+		'category': categoria,
+		'image': imagenNombre,
+		'rating': {'rate': 0, 'count': 0}
 	}
-	producto = Producto(**dato)
-	productos_collection.insert_one(producto.model_dump())
+	producto = dict(Producto(**dato))
+	producto['rating'] = dict(producto['rating'])
+	productos_collection.insert_one(producto)
+
+def modificarProducto(producto_id, datos_modificados):
+    try:
+        producto_id = ObjectId(producto_id)
+        productos_collection.update_one({"_id": producto_id}, {"$set": datos_modificados})
+    except Exception as e:
+        raise Exception(f"Error al modificar producto: {str(e)}")
+	
+def eliminarProducto(producto_id):
+    try:
+        producto_id = ObjectId(producto_id)
+        productos_collection.delete_one({"_id": producto_id})
+    except Exception as e:
+        raise Exception(f"Error al eliminar producto: {str(e)}")
 
 def copia_de_seguridad():
 	## Hacemos una copia de seguridad
@@ -181,3 +217,8 @@ def copia_de_seguridad():
 	if respuesta == 's':
 		copiaSeguridad()
 		print("\nCopia de seguridad realizada")
+
+# Borrar todos los productos de la BD
+#productos_collection.delete_many({})
+# Añadir productos
+#guardarProductos()

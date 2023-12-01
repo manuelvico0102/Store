@@ -1,10 +1,13 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>{% block title %}Título predeterminado{% endblock %}</title>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="{% static 'js/starts.js' %}"></script>
     <style>
         .container {
             margin-top: 20px;
@@ -25,6 +28,13 @@
             border-color: rgb(142, 68, 173);
         }  
 
+        .checked {
+            color: orange;
+        }
+
+        .not_checked {
+            color: gray;    /* Cambia el color según tus preferencias */
+        }
     </style>
 </head>
 <body>
@@ -34,7 +44,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <a href="{% url 'nuevo-producto' %}" class="nav-link ms-3">Añadir</a>
+            <a class="btn my-btn ms-3" href="{% url 'nuevo-producto' %}">Añadir</a>
             <div class="dropdown ms-3">
                 <button class="btn my-btn" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                     Categorías
@@ -73,11 +83,18 @@
     </nav>
     
     <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+                    {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
         {% block content %}
         {% endblock %}
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
-
-

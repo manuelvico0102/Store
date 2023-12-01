@@ -1,7 +1,4 @@
 from django import forms
-import logging
-
-logger = logging.getLogger(__name__)
 
 class ProductoForm(forms.Form):
 	nombre = forms.CharField(
