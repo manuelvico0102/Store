@@ -98,20 +98,17 @@ def Modifica_producto(request, id: str, payload: ProductSchemaIn):
 	
 @api.put("/productos_rate/{id}/{rate}", tags=['CRUD'])
 def modifica_rate(request, id: str, rate: int):
-	if request.user.is_authenticated:
-		try:
-			data = Seed.buscarProductoPorId(id)
-			rate_inicial = data['rating']['rate']
-			count_inicial = data['rating']['count']
-			count_final = count_inicial + 1
-			rate_final = ((rate_inicial * count_inicial) + (rate * 1.0)) / count_final
+	try:
+		data = Seed.buscarProductoPorId(id)
+		rate_inicial = data['rating']['rate']
+		count_inicial = data['rating']['count']
+		count_final = count_inicial + 1
+		rate_final = ((rate_inicial * count_inicial) + (rate * 1.0)) / count_final
 
-			Seed.productos_collection.update_one({"_id": ObjectId(id)}, {"$set": {"rating.rate": rate_final, "rating.count": count_final}})
-			return {"mensaje": "Rate modificado correctamente"}
-		except:
-			return {"error": "Producto no encontrado"}
-	else:
-		return {"error": "Usuario no autenticado"}
+		Seed.productos_collection.update_one({"_id": ObjectId(id)}, {"$set": {"rating.rate": rate_final, "rating.count": count_final}})
+		return {"mensaje": "Rate modificado correctamente"}
+	except:
+		return {"error": "Producto no encontrado"}
 
 @api.delete("/producto/{producto_id}", tags=['CRUD'])
 def borrar_producto(request, producto_id: str):

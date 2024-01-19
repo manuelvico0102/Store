@@ -35,7 +35,7 @@ function App() {
   }
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/productos?desde=0&hasta=100`)
+    fetch(`http://localhost/api/productos?desde=0&hasta=100`)
       .then((response) => response.json())
       .then((products) => {
         setProducts(products);
