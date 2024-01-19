@@ -37,12 +37,21 @@ cd Tienda
 ```bash
 docker-compose -f ./docker-compose-prod.yml build
 ```
-bash
-Copy code
-docker-compose -f ./docker-compose-prod.yml build
 
 4. Luego, inicia los contenedores:
 
 ```bash
 docker-compose -f ./docker-compose-prod.yml up
+```
+
+5. Ahora puedes acceder a la página web principal ingresando:
+
+```bash
+http://localhost/
+```
+
+6. Para acceder a la versión de React, utiliza:
+
+```bash
+http://localhost/react/
 ```
