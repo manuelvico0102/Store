@@ -5,7 +5,7 @@ requests==2.31
 email-validator==2.0
 typing-extensions==4.8
 django==4.2
-pillow==10.1.0
+pillow==10.2.0
 django-ninja-extra==0.19.8
 django-cors-headers==4.3.1
 gunicorn == 21.2.0
