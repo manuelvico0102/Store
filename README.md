@@ -44,6 +44,18 @@ docker-compose -f ./docker-compose-prod.yml build
 docker-compose -f ./docker-compose-prod.yml up
 ```
 
+5. Ahora puedes acceder a la página web principal ingresando:
+
+```bash
+http://localhost/
+```
+
+6. Para acceder a la versión de React, utiliza:
+
+```bash
+http://localhost/react/
+```
+
 ## Capturas
 
 ![Inicio de la tienda](img/p1.png)
