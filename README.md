@@ -37,12 +37,14 @@ cd Tienda
 ```bash
 docker-compose -f ./docker-compose-prod.yml build
 ```
-bash
-Copy code
-docker-compose -f ./docker-compose-prod.yml build
 
 4. Luego, inicia los contenedores:
 
 ```bash
 docker-compose -f ./docker-compose-prod.yml up
 ```
+
+## Capturas
+
+![Inicio de la tienda](img/p1.png)
+![Productos](img/p2.png)
