@@ -1,4 +1,4 @@
-# Tienda
+# Store
 Esta es una aplicación web de catálogo de productos, para la asignatura de Desarrollo de Aplicaciones para Internet, que utiliza MongoDB como base de datos, Python como lenguaje principal, y Django como framework web. Además, se ha implementado una API con Ninja Extra para interactuar con la base de datos. La interfaz de usuario ha sido construida con Bootstrap, CSS, y HTML, con funcionalidades adicionales de evaluación de productos mediante estrellas implementadas en JavaScript.
 
 Además, se ha desarrollado una versión paralela de la página web utilizando React con Vite, permitiendo así una comparativa entre ambas implementaciones.
